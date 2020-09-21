@@ -3,7 +3,6 @@ package bw.lambdaschool.comake.services;
 import bw.lambdaschool.comake.CoMakeApplication;
 import bw.lambdaschool.comake.models.User;
 import bw.lambdaschool.comake.models.UserRoles;
-import bw.lambdaschool.comake.models.Useremail;
 import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
 import bw.lambdaschool.comake.models.Role;
 import junit.framework.TestCase;
@@ -109,8 +108,6 @@ public class UserServiceImplTest
 
         User u2 = new User("tiger", "(123)456-1111", "ILuvMath!", "tiger@school.lambda");
         u2.getRoles().add(new UserRoles(u2, r2));
-        u2.getUseremails()
-                .add(new Useremail(u2, "tiger@tiger.local"));
 
         User saveU2 = userService.save(u2);
 
@@ -118,9 +115,7 @@ public class UserServiceImplTest
         System.out.println(saveU2);
         System.out.println("*** DATA ***");
 
-        assertEquals("tiger@tiger.local", saveU2.getUseremails()
-                .get(0)
-                .getUseremail());
+        assertEquals("tiger@school.lambda", u2.getPrimaryemail());
     }
 
     @Transactional
@@ -134,24 +129,13 @@ public class UserServiceImplTest
         User u2 = new User("cinnamon","(123)456-5555", "password", "cinnamon@school.lambda");
         u2.getRoles().add(new UserRoles(u2, r2));
 
-        u2.getUseremails()
-                .add(new Useremail(u2, "cinnamon@mymail.thump"));
-        u2.getUseremails()
-                .add(new Useremail(u2, "hops@mymail.thump"));
-        u2.getUseremails()
-                .add(new Useremail(u2, "bunny@email.thump"));
-
         User updatedu2 = userService.update(u2, 7);
 
         System.out.println("*** DATA ***");
         System.out.println(updatedu2);
         System.out.println("*** DATA ***");
 
-        int checking = updatedu2.getUseremails()
-                .size() - 1;
-        assertEquals("bunny@email.thump", updatedu2.getUseremails()
-                .get(checking)
-                .getUseremail());
+        assertEquals("cinnamon@school.lambda", u2.getPrimaryemail());
     }
 
     @Transactional
@@ -164,12 +148,6 @@ public class UserServiceImplTest
 
         User u2 = new User("cinnamon", "(123)456-2222", "password", "cinnamon@school.lambda");
         u2.getRoles().add(new UserRoles(u2, r2));
-        u2.getUseremails()
-                .add(new Useremail(u2, "cinnamon@mymail.thump"));
-        u2.getUseremails()
-                .add(new Useremail(u2, "hops@mymail.thump"));
-        u2.getUseremails()
-                .add(new Useremail(u2, "bunny@email.thump"));
 
         User updatedu2 = userService.update(u2, 8);
 
@@ -177,10 +155,6 @@ public class UserServiceImplTest
         System.out.println(updatedu2);
         System.out.println("*** DATA ***");
 
-        int checking = updatedu2.getUseremails()
-                .size() - 1;
-        assertEquals("bunny@email.thump", updatedu2.getUseremails()
-                .get(checking)
-                .getUseremail());
+        assertEquals("cinnamon@school.lambda", u2.getPrimaryemail());
     }
 }

@@ -61,6 +61,7 @@ public class UserController
      * @return JSON object of the user you seek
      * @see UserService#findUserById(long) UserService.findUserById(long)
      */
+    //users/user/:id
     @GetMapping(value = "/user/{userId}",
             produces = "application/json")
     public ResponseEntity<?> getUserById(

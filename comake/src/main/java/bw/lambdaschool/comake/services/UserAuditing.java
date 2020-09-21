@@ -32,7 +32,7 @@ public class UserAuditing
             uname = authentication.getName();
         } else
         {
-            uname = "SYSTEM";
+            uname = "GODKING";
         }
         return Optional.of(uname);
     }

@@ -5,7 +5,6 @@ import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
 import bw.lambdaschool.comake.models.Role;
 import bw.lambdaschool.comake.models.User;
 import bw.lambdaschool.comake.models.UserRoles;
-import bw.lambdaschool.comake.models.Useremail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,15 +113,6 @@ public class UserServiceImpl
                     addRole));
         }
 
-        newUser.getUseremails()
-            .clear();
-        for (Useremail ue : user.getUseremails())
-        {
-            newUser.getUseremails()
-                .add(new Useremail(newUser,
-                    ue.getUseremail()));
-        }
-
         return userrepos.save(newUser);
     }
 
@@ -171,19 +161,6 @@ public class UserServiceImpl
                     currentUser.getRoles()
                         .add(new UserRoles(currentUser,
                             addRole));
-                }
-            }
-
-            if (user.getUseremails()
-                .size() > 0)
-            {
-                currentUser.getUseremails()
-                    .clear();
-                for (Useremail ue : user.getUseremails())
-                {
-                    currentUser.getUseremails()
-                        .add(new Useremail(currentUser,
-                            ue.getUseremail()));
                 }
             }
 

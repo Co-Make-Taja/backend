@@ -50,7 +50,7 @@ public class OpenController
     private RoleService roleService;
 
     /**
-     * This endpoint always anyone to create an account with the default role of USER. That role is hardcoded in this method.
+     * This endpoint allows anyone to create an account with the default role of USER. That role is hardcoded in this method.
      *
      * @param httpServletRequest the request that comes in for creating the new user
      * @param newminuser         A special minimum set of data that is needed to create a new user
