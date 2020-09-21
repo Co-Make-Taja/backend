@@ -53,6 +53,9 @@ public class CoMakeApplication
         {
             SpringApplication.run(CoMakeApplication.class,
                 args);
+        } else
+        {
+            System.out.println("Environment Variables NOT SET!!!");
         }
     }
 }
