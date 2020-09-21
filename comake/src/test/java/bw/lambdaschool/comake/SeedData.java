@@ -3,7 +3,6 @@ package bw.lambdaschool.comake;
 import bw.lambdaschool.comake.models.Role;
 import bw.lambdaschool.comake.models.User;
 import bw.lambdaschool.comake.models.UserRoles;
-import bw.lambdaschool.comake.models.Useremail;
 import bw.lambdaschool.comake.services.RoleService;
 import bw.lambdaschool.comake.services.UserService;
 import com.github.javafaker.Faker;
@@ -147,9 +146,6 @@ public class SeedData
                                             .emailAddress());
                 fakeUser.getRoles()
                         .add(new UserRoles(fakeUser, r2));
-                fakeUser.getUseremails()
-                        .add(new Useremail(fakeUser,
-                                           fakeValuesService.bothify("????##@gmail.com")));
                 userService.save(fakeUser);
             }
         }

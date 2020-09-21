@@ -25,8 +25,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class User
-        extends Auditable
+public class User extends Auditable
 {
     /**
      * The primary key (long) of the users table.
@@ -59,27 +58,15 @@ public class User
     /**
      * Primary email account of user. Could be used as the userid. Cannot be null and must be unique.
      */
-    @Column(nullable = false,
-            unique = true)
+    @Column(nullable = false, unique = true)
     @Email
     private String primaryemail;
-
-    /**
-     * A list of emails for this user
-     */
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonIgnoreProperties(value = "user", allowSetters = true)
-    private List<Useremail> useremails = new ArrayList<>();
 
     /**
      * Part of the join relationship between user and role
      * connects users to the user role combination
      */
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
 
@@ -157,7 +144,8 @@ public class User
      *
      * @return the phone (String)
      */
-    public String getPhone() {
+    public String getPhone()
+    {
         return phone;
     }
 
@@ -166,7 +154,8 @@ public class User
      *
      * @param phone (String) the new phone (String) of the user
      */
-    public void setPhone(String phone) {
+    public void setPhone(String phone)
+    {
         this.phone = phone;
     }
 
@@ -217,26 +206,6 @@ public class User
     {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
-    }
-
-    /**
-     * Getter for the list of useremails for this user
-     *
-     * @return the list of useremails (List(Useremail)) for this user
-     */
-    public List<Useremail> getUseremails()
-    {
-        return useremails;
-    }
-
-    /**
-     * Setter for list of useremails for this user
-     *
-     * @param useremails the new list of useremails (List(Useremail)) for this user
-     */
-    public void setUseremails(List<Useremail> useremails)
-    {
-        this.useremails = useremails;
     }
 
     /**
