@@ -2,11 +2,11 @@ package bw.lambdaschool.comake.services;
 
 import bw.lambdaschool.comake.models.Issue;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IssueService
 {
-    List<Issue> findAll();
+    Set<Issue> findAll();
 
     Issue findIssueById(Long issueid);
 

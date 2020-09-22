@@ -176,11 +176,11 @@ public class SeedData implements CommandLineRunner
                 "pass123",
                 "taja@lambda.com");
         u7.getRoles()
-                .add(new UserRoles(u1, r1));
+                .add(new UserRoles(u7, r1));
         u7.getRoles()
-                .add(new UserRoles(u1, r2));
+                .add(new UserRoles(u7, r2));
         u7.getRoles()
-                .add(new UserRoles(u1, r3));
+                .add(new UserRoles(u7, r3));
 
         u7 = userService.save(u7);
 
@@ -198,8 +198,6 @@ public class SeedData implements CommandLineRunner
         i1 = issueService.save(i1);
         i2 = issueService.save(i2);
         i3 = issueService.save(i3);
-
-        u7.getIssues().add(i3);
 
 
 

@@ -1,5 +1,6 @@
 package bw.lambdaschool.comake.services;
 
+import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
 import bw.lambdaschool.comake.models.Comment;
 import bw.lambdaschool.comake.models.Issue;
 import bw.lambdaschool.comake.repository.CommentRepository;
@@ -25,5 +26,35 @@ public class CommentServiceImpl implements CommentService
                 .iterator()
                 .forEachRemaining(list::add);
         return list;
+    }
+
+    @Override
+    public Comment save(Comment comment)
+    {
+        Comment newComment = new Comment();
+
+        if (comment.getCommentid() != 0)
+        {
+            commentRepository.findById(comment.getCommentid())
+                    .orElseThrow(() -> new ResourceNotFoundException("Comment id " + comment.getCommentid() + " not found!"));
+        }
+
+        newComment.setComment(comment.getComment());
+        newComment.setIssue(comment.getIssue());
+
+        return commentRepository.save(newComment);
+    }
+
+    @Override
+    public void delete(long id)
+    {
+        if (commentRepository.findById(id)
+                .isPresent())
+        {
+            commentRepository.deleteById(id);
+        } else
+        {
+            throw new ResourceNotFoundException("Comment with id " + id + " Not Found!");
+        }
     }
 }

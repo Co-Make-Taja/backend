@@ -3,14 +3,15 @@ package bw.lambdaschool.comake.services;
 import bw.lambdaschool.comake.exceptions.ResourceFoundException;
 import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
 import bw.lambdaschool.comake.models.Category;
-import bw.lambdaschool.comake.models.Role;
 import bw.lambdaschool.comake.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Service("categoryService")
@@ -50,9 +51,9 @@ public class CategoryServiceImpl implements CategoryService
     }
 
     @Override
-    public List<Category> findAll()
+    public Set<Category> findAll()
     {
-        List<Category> list = new ArrayList<>();
+        Set<Category> list = new HashSet<>();
         categoryRepository.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
