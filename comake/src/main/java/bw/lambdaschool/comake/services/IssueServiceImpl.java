@@ -40,6 +40,7 @@ public class IssueServiceImpl implements IssueService
                 .orElseThrow(() -> new ResourceNotFoundException("Issue with id " + issueid + " Not Found!"));
     }
 
+    @Transactional
     @Override
     public Issue save(Issue issue)
     {
@@ -63,6 +64,7 @@ public class IssueServiceImpl implements IssueService
         return issueRepository.save(newIssue);
     }
 
+    @Transactional
     @Override
     public void delete(long issueid)
     {
@@ -76,6 +78,7 @@ public class IssueServiceImpl implements IssueService
         }
     }
 
+    @Transactional
     @Override
     public void deleteAll()
     {

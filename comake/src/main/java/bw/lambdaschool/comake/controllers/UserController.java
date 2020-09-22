@@ -171,7 +171,7 @@ public class UserController
         updateUser.setUserid(userid);
         userService.save(updateUser);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     /**
@@ -195,7 +195,7 @@ public class UserController
     {
         userService.update(updateUser,
                            id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     /**
@@ -224,7 +224,7 @@ public class UserController
      */
     @ApiOperation(value = "returns the currently authenticated user",
         response = User.class)
-    @GetMapping(value = "/getuserinfo",
+    @GetMapping(value = "/myinfo",
         produces = {"application/json"})
     public ResponseEntity<?> getCurrentUserInfo(Authentication authentication)
     {
