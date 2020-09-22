@@ -1,6 +1,7 @@
 package bw.lambdaschool.comake.controllers;
 
 import bw.lambdaschool.comake.models.Issue;
+import bw.lambdaschool.comake.services.HelperFunctions;
 import bw.lambdaschool.comake.services.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,9 @@ public class IssueController
 {
     @Autowired
     IssueService issueService;
+
+    @Autowired
+    HelperFunctions helperFunctions;
 
     //issues/issues
     @GetMapping(value = "/issues", produces = {"application/json"})
@@ -48,9 +52,10 @@ public class IssueController
 //    }
 
     //issues/issue
-    @PostMapping(value = "/issue", consumes = {"application/json"})
+    @PostMapping(value = "/issue", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewIssue(@Valid @RequestBody Issue newIssue) throws URISyntaxException
     {
+        newIssue.setUser(helperFunctions.getCurrentUser());
         newIssue.setIssueid(0);
         newIssue = issueService.save(newIssue);
 
@@ -64,7 +69,7 @@ public class IssueController
 
     // using fullupdate since FE will setup forms with auto populate
     //issues/issue/:id
-    @PutMapping(value = "/issue/{issueid}", consumes = {"application/json"})
+    @PutMapping(value = "/issue/{issueid}", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> fullUpdateIssue(@Valid @RequestBody Issue updateIssue, @PathVariable long issueid)
     {
         updateIssue.setIssueid(issueid);

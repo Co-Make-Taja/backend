@@ -20,6 +20,9 @@ public class IssueServiceImpl implements IssueService
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    HelperFunctions helperFunctions;
+
     @Override
     public List<Issue> findAll()
     {
@@ -49,6 +52,8 @@ public class IssueServiceImpl implements IssueService
         }
 
         newIssue.setTitle(issue.getTitle());
+        newIssue.setDescription(issue.getDescription());
+        newIssue.setImage(issue.getImage());
         if (issue.getCategory() != null)
         {
             newIssue.setCategory(categoryService.findCategoryById(issue.getCategory()
@@ -69,6 +74,12 @@ public class IssueServiceImpl implements IssueService
         {
             throw new ResourceNotFoundException("Issue with id " + issueid + " Not Found!");
         }
+    }
+
+    @Override
+    public void deleteAll()
+    {
+        issueRepository.deleteAll();
     }
 
 

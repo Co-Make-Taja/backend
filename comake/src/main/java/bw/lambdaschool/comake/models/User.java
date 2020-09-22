@@ -70,6 +70,10 @@ public class User extends Auditable
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private List<Issue> issueList = new ArrayList<>();
+
     /**
      * Default constructor used primarily by the JPA.
      */
@@ -226,6 +230,26 @@ public class User extends Auditable
     public void setRoles(Set<UserRoles> roles)
     {
         this.roles = roles;
+    }
+
+    /**
+     * Getter for issues
+     *
+     * @return A list of issues associated with this user
+     */
+    public List<Issue> getIssueList()
+    {
+        return issueList;
+    }
+
+    /**
+     * Setter for user role combinations
+     *
+     * @param issueList Change the list of issues associated with this user to this one
+     */
+    public void setIssueList(List<Issue> issueList)
+    {
+        this.issueList = issueList;
     }
 
     /**

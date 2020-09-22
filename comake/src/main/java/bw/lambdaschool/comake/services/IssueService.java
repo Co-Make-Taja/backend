@@ -13,4 +13,6 @@ public interface IssueService
     Issue save(Issue newIssue);
 
     void delete(long issueid);
+
+    void deleteAll();
 }

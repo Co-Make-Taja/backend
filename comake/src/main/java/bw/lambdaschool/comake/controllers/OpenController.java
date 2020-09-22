@@ -60,8 +60,7 @@ public class OpenController
     @PostMapping(value = "/createnewuser",
             consumes = {"application/json"},
             produces = {"application/json"})
-    public ResponseEntity<?> addSelf(
-            HttpServletRequest httpServletRequest,
+    public ResponseEntity<?> addSelf(HttpServletRequest httpServletRequest,
             @Valid
             @RequestBody
                     UserMinimum newminuser)
@@ -72,6 +71,7 @@ public class OpenController
         User newuser = new User();
 
         newuser.setUsername(newminuser.getUsername());
+        newuser.setPhone(newminuser.getPhone());
         newuser.setPassword(newminuser.getPassword());
         newuser.setPrimaryemail(newminuser.getPrimaryemail());
 
