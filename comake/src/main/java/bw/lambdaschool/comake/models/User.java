@@ -72,7 +72,7 @@ public class User extends Auditable
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
-    private List<Issue> issues = new ArrayList<>();
+    private Set<Issue> issues = new HashSet<>();
 
     /**
      * Default constructor used primarily by the JPA.
@@ -237,7 +237,7 @@ public class User extends Auditable
      *
      * @return A list of issues associated with this user
      */
-    public List<Issue> getIssues()
+    public Set<Issue> getIssues()
     {
         return issues;
     }
@@ -247,7 +247,7 @@ public class User extends Auditable
      *
      * @param issues Change the list of issues associated with this user to this one
      */
-    public void setIssueList(List<Issue> issues)
+    public void setIssues(Set<Issue> issues)
     {
         this.issues = issues;
     }

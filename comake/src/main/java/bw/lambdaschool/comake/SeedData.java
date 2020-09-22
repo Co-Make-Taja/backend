@@ -1,10 +1,7 @@
 package bw.lambdaschool.comake;
 
 import bw.lambdaschool.comake.models.*;
-import bw.lambdaschool.comake.services.CategoryService;
-import bw.lambdaschool.comake.services.IssueService;
-import bw.lambdaschool.comake.services.RoleService;
-import bw.lambdaschool.comake.services.UserService;
+import bw.lambdaschool.comake.services.*;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
@@ -48,6 +45,9 @@ public class SeedData implements CommandLineRunner
      */
     @Autowired
     IssueService issueService;
+
+    @Autowired
+    HelperFunctions helperFunctions;
 
     /**
      * Generates test, seed data for our application
@@ -118,7 +118,7 @@ public class SeedData implements CommandLineRunner
         u1.getRoles()
                 .add(new UserRoles(u1, r3));
 
-        userService.save(u1);
+        u1 = userService.save(u1);
 
         // admin, data, user nelson
         User u2 = new User("nelson", "(123)456-2222",
@@ -131,7 +131,7 @@ public class SeedData implements CommandLineRunner
         u2.getRoles()
                 .add(new UserRoles(u2, r3));
 
-        userService.save(u2);
+        u2 = userService.save(u2);
 
         // admin, data, user rhea
         User u3 = new User("rhea", "(123)456-3333",
@@ -143,16 +143,17 @@ public class SeedData implements CommandLineRunner
         u3.getRoles()
                 .add(new UserRoles(u3, r3));
 
-        userService.save(u3);
+        u3 = userService.save(u3);
 
         // user matty
-        User u4 = new User("matty", "(123)456-4444",
+        User u4 = new User("matty",
+                             "(123)456-4444",
                            "pass123",
                            "matty@lambda.com");
         u4.getRoles()
                 .add(new UserRoles(u4, r2));
 
-        userService.save(u4);
+        u4 = userService.save(u4);
 
         // user max
         User u5 = new User("max", "(123)456-5555",
@@ -160,7 +161,7 @@ public class SeedData implements CommandLineRunner
                            "max@lambda.com");
         u5.getRoles()
                 .add(new UserRoles(u5, r2));
-        userService.save(u5);
+        u5 = userService.save(u5);
 
         // user sam
         User u6 = new User("sam", "(123)456-6666",
@@ -168,20 +169,20 @@ public class SeedData implements CommandLineRunner
                            "sam@lambda.com");
         u6.getRoles()
                 .add(new UserRoles(u6, r2));
-        userService.save(u6);
+        u6 = userService.save(u6);
 
         // admin, data, user taja
         User u7 = new User("taja", "(123)456-7777",
                 "pass123",
                 "taja@lambda.com");
-        u1.getRoles()
+        u7.getRoles()
                 .add(new UserRoles(u1, r1));
-        u1.getRoles()
+        u7.getRoles()
                 .add(new UserRoles(u1, r2));
-        u1.getRoles()
+        u7.getRoles()
                 .add(new UserRoles(u1, r3));
 
-        userService.save(u7);
+        u7 = userService.save(u7);
 
         // issues
         // String title, String description, String image, Category category
@@ -192,11 +193,15 @@ public class SeedData implements CommandLineRunner
 
         Issue i2 = new Issue("Looking for doll specialist", "Hello! My mother recently passed away, leaving behind a large collection of porcelain dolls. While planning to keep a few, not quite sure of what to do with the rest. Would love to connect with a local specialist on this if anyone has a recommendation!", "https://i.ebayimg.com/images/g/ejUAAOSwOrNfFJTW/s-l640.jpg", c5, u1);
 
-        Issue i3 = new Issue("Newborn care specialist.", "Does anyone know a good newborn care specialist (a nanny for newborn) in our neighborhood?", null, c5, u1);
+        Issue i3 = new Issue("Newborn care specialist.", "Does anyone know a good newborn care specialist (a nanny for newborn) in our neighborhood?", null, c5, u7);
 
         i1 = issueService.save(i1);
         i2 = issueService.save(i2);
         i3 = issueService.save(i3);
+
+        u7.getIssues().add(i3);
+
+
 
         if (false)
         {
