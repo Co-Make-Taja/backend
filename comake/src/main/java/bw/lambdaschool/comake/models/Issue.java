@@ -3,6 +3,8 @@ package bw.lambdaschool.comake.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "issues")
@@ -38,6 +40,11 @@ public class Issue extends Auditable
     @JoinColumn(name = "username")
     @JsonIgnoreProperties(value = "issues", allowSetters = true)
     private User user;
+
+    @OneToMany(mappedBy = "commentid", cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "issue", allowSetters = true)
+    private List<Comment> comments = new ArrayList<>();
 
     /**
      * The default controller is required by JPA
@@ -123,5 +130,13 @@ public class Issue extends Auditable
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

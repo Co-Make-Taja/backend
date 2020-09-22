@@ -44,12 +44,12 @@ public class IssueController
     }
 
     //issues/issue/:id/comments
-//    @GetMapping(value = "/issues/issue/{issueid}/comments")
-//    public ResponseEntity<?> getCommentsIssueById(HttpServletRequest request, @PathVariable Long issueid)
-//    {
-//        Issue thisIssue = issueService.findIssueById(issueid);
-//        return new ResponseEntity<>(thisIssue, HttpStatus.OK);
-//    }
+    @GetMapping(value = "/issues/issue/{issueid}/comments")
+    public ResponseEntity<?> getCommentsIssueById(HttpServletRequest request, @PathVariable Long issueid)
+    {
+        Issue thisIssue = issueService.findIssueById(issueid);
+        return new ResponseEntity<>(thisIssue, HttpStatus.OK);
+    }
 
     //issues/issue
     @PostMapping(value = "/issue", consumes = {"application/json"}, produces = {"application/json"})
