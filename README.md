@@ -147,5 +147,5 @@ the corresponding user to the issue id provided in the endpoint.
 |  GET   |   /roles/roles   |                Returns full list of roles                | Token and Admin role  |
 |  GET   | /roles/role/{id} |               Returns specific role by id                | Token and Admin role  |
 |  POST  |   /roles/role    | Adds new role to database and returns status of CREATED  | Token and role object |
-| PATCH  | /roles/role/{id} | Replaces entire role by id and returns status of CREATED | Token and role object |
+|  PUT   | /roles/role/{id} | Replaces entire role by id and returns status of CREATED | Token and role object |
 | DELETE | /roles/role/{id} |       Deletes role by id and returns status of OK        |         Token         |
