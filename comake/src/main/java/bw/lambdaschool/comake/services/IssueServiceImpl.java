@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Transactional
 @Service("issueService")
@@ -24,9 +24,9 @@ public class IssueServiceImpl implements IssueService
     HelperFunctions helperFunctions;
 
     @Override
-    public List<Issue> findAll()
+    public Set<Issue> findAll()
     {
-        List<Issue> list = new ArrayList<>();
+        Set<Issue> list = new HashSet<>();
         issueRepository.findAll()
                 .iterator()
                 .forEachRemaining(list::add);
@@ -60,6 +60,9 @@ public class IssueServiceImpl implements IssueService
             newIssue.setCategory(categoryService.findCategoryById(issue.getCategory()
                     .getCategoryid()));
         }
+
+        // setting the user to the issue created
+        newIssue.setUser(issue.getUser());
 
         return issueRepository.save(newIssue);
     }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/categories")
@@ -23,7 +23,7 @@ public class CategoryController
     @GetMapping(value = "/categories", produces = {"application/json"})
     public ResponseEntity<?> listAllCategories(HttpServletRequest request)
     {
-        List<Category> categoryList = categoryService.findAll();
+        Set<Category> categoryList = categoryService.findAll();
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 

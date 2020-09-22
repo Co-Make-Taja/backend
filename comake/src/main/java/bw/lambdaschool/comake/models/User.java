@@ -215,7 +215,7 @@ public class User extends Auditable
     /**
      * Getter for user role combinations
      *
-     * @return A list of user role combinations associated with this user
+     * @return A collection of user role combinations associated with this user
      */
     public Set<UserRoles> getRoles()
     {
@@ -225,7 +225,7 @@ public class User extends Auditable
     /**
      * Setter for user role combinations
      *
-     * @param roles Change the list of user role combinations associated with this user to this one
+     * @param roles Change the collection of user role combinations associated with this user to this one
      */
     public void setRoles(Set<UserRoles> roles)
     {
@@ -235,7 +235,7 @@ public class User extends Auditable
     /**
      * Getter for issues
      *
-     * @return A list of issues associated with this user
+     * @return A collection of issues associated with this user
      */
     public Set<Issue> getIssues()
     {
@@ -245,7 +245,7 @@ public class User extends Auditable
     /**
      * Setter for user role combinations
      *
-     * @param issues Change the list of issues associated with this user to this one
+     * @param issues Change the collection of issues associated with this user to this one
      */
     public void setIssues(Set<Issue> issues)
     {

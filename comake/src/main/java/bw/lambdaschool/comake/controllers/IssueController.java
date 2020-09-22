@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/issues")
@@ -30,7 +30,7 @@ public class IssueController
     @GetMapping(value = "/issues", produces = {"application/json"})
     public ResponseEntity<?> listAllIssues(HttpServletRequest request)
     {
-        List<Issue> issueList = issueService.findAll();
+        Set<Issue> issueList = issueService.findAll();
         return new ResponseEntity<>(issueList, HttpStatus.OK);
 
     }
@@ -72,6 +72,7 @@ public class IssueController
     @PutMapping(value = "/issue/{issueid}", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> fullUpdateIssue(@Valid @RequestBody Issue updateIssue, @PathVariable long issueid)
     {
+        updateIssue.setUser(helperFunctions.getCurrentUser()); // set user to current user
         updateIssue.setIssueid(issueid);
         issueService.save(updateIssue);
 
@@ -79,7 +80,7 @@ public class IssueController
     }
 
     //issues/issue/{issueid}
-    @DeleteMapping(value = "/issue{issueid}")
+    @DeleteMapping(value = "/issue/{issueid}")
     public ResponseEntity<?> deleteIssueById(@PathVariable long issueid)
     {
         issueService.delete(issueid);
