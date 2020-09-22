@@ -56,12 +56,13 @@ public class Issue extends Auditable
      * @param image the imageURL (String) of the issue
      * @param category the category (String) of the issue
      */
-    public Issue(String title, String description, String image, Category category)
+    public Issue(String title, String description, String image, Category category, User user)
     {
         this.title = title;
         this.description = description;
         this.image = image;
         this.category = category;
+        this.user = user;
     }
 
     public long getIssueid()

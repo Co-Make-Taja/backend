@@ -95,22 +95,16 @@ public class UserServiceImpl
             newUser.setUserid(user.getUserid());
         }
 
-        newUser.setUsername(user.getUsername()
-            .toLowerCase());
+        newUser.setUsername(user.getUsername().toLowerCase());
         newUser.setPhone(user.getPhone());
         newUser.setPasswordNoEncrypt(user.getPassword());
-        newUser.setPrimaryemail(user.getPrimaryemail()
-            .toLowerCase());
+        newUser.setPrimaryemail(user.getPrimaryemail().toLowerCase());
 
-        newUser.getRoles()
-            .clear();
+        newUser.getRoles().clear();
         for (UserRoles ur : user.getRoles())
         {
-            Role addRole = roleService.findRoleById(ur.getRole()
-                .getRoleid());
-            newUser.getRoles()
-                .add(new UserRoles(newUser,
-                    addRole));
+            Role addRole = roleService.findRoleById(ur.getRole().getRoleid());
+            newUser.getRoles().add(new UserRoles(newUser, addRole));
         }
 
         return userrepos.save(newUser);
@@ -118,9 +112,7 @@ public class UserServiceImpl
 
     @Transactional
     @Override
-    public User update(
-        User user,
-        long id)
+    public User update(User user, long id)
     {
         User currentUser = findUserById(id);
 

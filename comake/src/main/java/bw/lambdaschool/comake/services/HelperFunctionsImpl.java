@@ -1,7 +1,10 @@
 package bw.lambdaschool.comake.services;
 
 import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
+import bw.lambdaschool.comake.models.User;
 import bw.lambdaschool.comake.models.ValidationError;
+import bw.lambdaschool.comake.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,9 @@ import java.util.List;
 public class HelperFunctionsImpl
         implements HelperFunctions
 {
+    @Autowired
+    UserRepository userRepository;
+
     public List<ValidationError> getConstraintViolation(Throwable cause)
     {
         // Find any data violations that might be associated with the error and report them
@@ -65,6 +72,14 @@ public class HelperFunctionsImpl
             // stop user is not authorized to make this change so stop the whole process and throw an exception
             throw new ResourceNotFoundException(authentication.getName() + " not authorized to make change");
         }
+    }
+
+    @Override
+    public User getCurrentUser()
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userRepository.findByUsername(username);
     }
 
 }

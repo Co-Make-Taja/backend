@@ -1,5 +1,6 @@
 package bw.lambdaschool.comake.services;
 
+import bw.lambdaschool.comake.models.User;
 import bw.lambdaschool.comake.models.ValidationError;
 
 import java.util.List;
@@ -26,4 +27,6 @@ public interface HelperFunctions
      * @return true if the user can make the modifications, otherwise an exception is thrown
      */
     boolean isAuthorizedToMakeChange(String username);
+
+    User getCurrentUser();
 }
