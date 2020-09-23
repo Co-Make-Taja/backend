@@ -55,7 +55,8 @@ public class UserMinimum
      *
      * @return the phone (String) associated with this user
      */
-    public String getPhone() {
+    public String getPhone()
+    {
         return phone;
     }
 
@@ -64,7 +65,8 @@ public class UserMinimum
      *
      * @param phone the new username (String) associated with this user
      */
-    public void setPhone(String phone) {
+    public void setPhone(String phone)
+    {
         this.phone = phone;
     }
 

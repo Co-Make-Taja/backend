@@ -1,6 +1,7 @@
 package bw.lambdaschool.comake.controllers;
 
 import bw.lambdaschool.comake.models.Comment;
+import bw.lambdaschool.comake.models.Issue;
 import bw.lambdaschool.comake.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +30,16 @@ public class CommentController
         List<Comment> commentList = commentService.findAll();
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
+
+    //comments/comment/:id
+    @GetMapping(value = "/comment/{id}", produces = {"application/json"})
+    public ResponseEntity<?> getCommentById(HttpServletRequest request, @PathVariable Long id)
+    {
+        Comment thisComment = commentService.findCommentById(id);
+        return new ResponseEntity<>(thisComment, HttpStatus.OK);
+    }
+
+
 
     // comments/comment
     @PostMapping(value = "comment", consumes = {"application/json"}, produces = {"application/json"})

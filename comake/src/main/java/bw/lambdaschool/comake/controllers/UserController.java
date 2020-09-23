@@ -141,7 +141,7 @@ public class UserController
                 .toUri();
         responseHeaders.setLocation(newUserURI);
 
-        return new ResponseEntity<>(null,
+        return new ResponseEntity<>("User Created!",
                                     responseHeaders,
                                     HttpStatus.CREATED);
     }
@@ -171,7 +171,7 @@ public class UserController
         updateUser.setUserid(userid);
         userService.save(updateUser);
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("User Updated!", HttpStatus.ACCEPTED);
     }
 
     /**
@@ -195,7 +195,7 @@ public class UserController
     {
         userService.update(updateUser,
                            id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("User Updated!", HttpStatus.ACCEPTED);
     }
 
     /**
@@ -211,7 +211,7 @@ public class UserController
                     long id)
     {
         userService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Successfully Deleted!", HttpStatus.OK);
     }
 
     /**
