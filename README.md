@@ -143,6 +143,7 @@ the corresponding user to the issue id provided in the endpoint.
 }
 ```
 
+
 |  Type  |     Endpoint     |                       What it does                        |       required        |
 | :----: | :--------------: | :-------------------------------------------------------: | :-------------------: |
 |  GET   |   /roles/roles   |                Returns full list of roles                 | Token and Admin role  |
