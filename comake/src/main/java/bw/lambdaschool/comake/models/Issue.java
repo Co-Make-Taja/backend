@@ -44,7 +44,7 @@ public class Issue extends Auditable
     @JsonIgnoreProperties(value = "issues", allowSetters = true)
     private User user;
 
-    @OneToMany(mappedBy = "commentid", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JsonIgnoreProperties(value = "issue", allowSetters = true)
     private Set<Comment> comments = new HashSet<>();

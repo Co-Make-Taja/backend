@@ -16,18 +16,30 @@ public class Comment extends Auditable
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "issueid")
+    @JoinColumn(name = "issueid", nullable = false)
     @JsonIgnoreProperties(value = "comments", allowSetters = true)
     private Issue issue;
+
+    @ManyToOne
+    @JoinColumn(name = "userid")
+    @JsonIgnoreProperties(value = "comments", allowSetters = true)
+    private User user;
 
 
     public Comment()
     {
     }
 
-    public Comment(String comment)
+//    public Comment(String comment)
+//    {
+//        this.comment = comment;
+//    }
+
+    public Comment(String comment, Issue issue, User user)
     {
         this.comment = comment;
+        this.issue = issue;
+        this.user = user;
     }
 
     public long getCommentid()
@@ -58,5 +70,15 @@ public class Comment extends Auditable
     public void setIssue(Issue issue)
     {
         this.issue = issue;
+    }
+
+    public User getUser()
+    {
+        return user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
     }
 }
