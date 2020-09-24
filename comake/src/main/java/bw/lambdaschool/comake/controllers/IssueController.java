@@ -93,7 +93,7 @@ public class IssueController {
         newComment.setComment(newComment.getComment());
 
         newComment = commentService.save(newComment);
-System.out.println(newComment);
+
         thisIssue.getComments().add(newComment);
 
 

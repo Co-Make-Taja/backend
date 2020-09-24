@@ -40,28 +40,6 @@ public class CommentController
     }
 
 
-
-    // comments/comment
-    @PostMapping(value = "comment", consumes = {"application/json"}, produces = {"application/json"})
-    public  ResponseEntity<?> addNewComment(@Valid @RequestBody Comment newComment) throws URISyntaxException
-    {
-        newComment.setCommentid(0);
-        newComment = commentService.save(newComment);
-
-        // set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newCommentURI = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{commentid}")
-                .buildAndExpand(newComment.getCommentid())
-                .toUri();
-        responseHeaders.setLocation(newCommentURI);
-
-        return new ResponseEntity<>("Comment Posted!",
-                responseHeaders,
-                HttpStatus.CREATED);
-    }
-
-
     // comments/comment/:id
     @PutMapping(value = "/comment/{id}", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> updateComment(@Valid @RequestBody Comment updatedComment, @PathVariable long id)

@@ -21,28 +21,35 @@
 [Important Endpoints](#important-endpoints)
 [Register and Login](#register-and-login)  
 [User](#user)  
-[Issue](#issue)
+[Issue](#issue)  
 [Comment](#comment)  
 [Role](#role)
 
 ## IMPORTANT ENDPOINTS
 
-|  Type  |          Endpoint          |                   requires                   |          returns          |
-| :----: | :------------------------: | :------------------------------------------: | :-----------------------: |
-|  GET   |    /oauth/revoke-token     |                    token                     | logs user out of database |
-|  GET   |       /users/myinfo        |                    token                     |    current user's info    |
-|  GET   |       /issues/issues       |                    token                     |     lists all issues      |
-|  GET   |     /issues/issue/:id      |                    token                     |      get issue by id      |
-|  GET   |        /users/users        |                    token                     |      lists all users      |
-|  GET   | /users/user/name/:username |                    token                     |   get user by username    |
-|  GET   |      /users/user/:id       |                    token                     |      get user by id       |
-|  POST  |       /createnewuser       |   username, phone, password, primaryemail    |           token           |
-|  POST  |           /login           | username, password, client-id, client-secret |           token           |
-|  POST  |       /issues/issue        |    full issue object without user, token     |      CREATED status       |
-|  PUT   |     /issues/issue/:id      |    full issue object without user, token     |      ACCEPTED status      |
-|  PUT   |      /users/user/:id       |           full user object, token            |      ACCEPTED status      |
-| DELETE |     /issues/issue/:id      |                    token                     |         OK status         |
-| DELETE |      /users/user/:id       |                    token                     |         OK status         |
+|  Type  |          Endpoint          |                   requires                   |            returns            |
+| :----: | :------------------------: | :------------------------------------------: | :---------------------------: |
+|  GET   |    /oauth/revoke-token     |                    token                     |   logs user out of database   |
+|  GET   |       /users/myinfo        |                    token                     |      current user's info      |
+|  GET   |   /categories/categories   |                    token                     |     lists all categories      |
+|  GET   |       /issues/issues       |                    token                     |       lists all issues        |
+|  GET   |     /issues/issue/:id      |                    token                     |        get issue by id        |
+|  GET   |        /users/users        |                    token                     |        lists all users        |
+|  GET   | /users/user/name/:username |                    token                     |     get user by username      |
+|  GET   |      /users/user/:id       |                    token                     |        get user by id         |
+|  GET   |     /comments/comments     |                    token                     |       list all comments       |
+|  GET   |   /comments/comment/:id    |                    token                     |      get comments by id       |
+|  GET   | /issues/issue/:id/comments |                    token                     | list all comments in an issue |
+|  POST  |       /createnewuser       |   username, phone, password, primaryemail    |             token             |
+|  POST  |           /login           | username, password, client-id, client-secret |             token             |
+|  POST  |       /issues/issue        |    full issue object without user, token     |        CREATED status         |
+|  POST  | /issues/issue/:id/comments |            comment object, token             |        CREATED status         |
+|  PUT   |     /issues/issue/:id      |    full issue object without user, token     |        ACCEPTED status        |
+|  PUT   |      /users/user/:id       |           full user object, token            |        ACCEPTED status        |
+|  PUT   |   /comments/comment/:id    |            comment object, token             |        ACCEPTED status        |
+| DELETE |     /issues/issue/:id      |                    token                     |           OK status           |
+| DELETE |      /users/user/:id       |                    token                     |           OK status           |
+| DELETE |   /comments/comment/:id    |                    token                     |           OK status           |
 
 ## REGISTER AND LOGIN
 
@@ -96,13 +103,13 @@ the corresponding user to the id provided in the endpoint.
 
 |  Type  |     Endpoint     |                                      What it does                                      |              required              |
 | :----: | :--------------: | :------------------------------------------------------------------------------------: | :--------------------------------: |
-|  GET   |   /users/users   |                               Returns full list of users                               |    Token and Authenticated User    |
-|  GET   | /users/user/{id} |                              Returns specific user by id                               |    Token and Authenticated User    |
-|  GET   |  /users/myinfo   |                             Returns current user's object                              |    Token and Authenticated User    |
+|  GET   |   /users/users   |                               Returns full list of users                               |         Authenticated User         |
+|  GET   | /users/user/{id} |                              Returns specific user by id                               |         Authenticated User         |
+|  GET   |  /users/myinfo   |                             Returns current user's object                              |         Authenticated User         |
 |  POST  |  /createnewuser  | Creates new user to database with 'USER' as default role and returns status of CREATED |                None                |
 |  POST  |   /users/user    |  Adds new user to database given a complete User Object and returns status of CREATED  |        Token and Admin role        |
 |  PUT   | /users/user/{id} |               Replaces entire user by id and returns status of ACCEPTED                | Token, Admin role, and User object |
-| DELETE | /users/user/{id} |                      Deletes user by id and returns status of OK                       |    Token and Authenticated User    |
+| DELETE | /users/user/{id} |                      Deletes user by id and returns status of OK                       |         Authenticated User         |
 
 ## ISSUE
 
@@ -123,13 +130,13 @@ the corresponding user to the issue id provided in the endpoint.
 }
 ```
 
-|  Type  |      Endpoint       |                        What it does                        |           required           |
-| :----: | :-----------------: | :--------------------------------------------------------: | :--------------------------: |
-|  GET   |   /issues/issues    |                Returns full list of issues                 | Token and Authenticated User |
-|  GET   | /issues/issues/{id} |                Returns specific issue by id                | Token and Authenticated User |
-|  POST  |    /issues/issue    |  Adds new issue to database and returns status of CREATED  |    Token and issue object    |
-|  PUT   | /issues/issue/{id}  | Replaces entire issue by id and returns status of ACCEPTED |    Token and issue object    |
-| DELETE | /issues/issue/{id}  |        Deletes issue by id and returns status of OK        |            Token             |
+|  Type  |      Endpoint       |                        What it does                        |              required               |
+| :----: | :-----------------: | :--------------------------------------------------------: | :---------------------------------: |
+|  GET   |   /issues/issues    |                Returns full list of issues                 |         Authenticated User          |
+|  GET   | /issues/issues/{id} |                Returns specific issue by id                |         Authenticated User          |
+|  POST  |    /issues/issue    |  Adds new issue to database and returns status of CREATED  | Authenticated User and issue object |
+|  PUT   | /issues/issue/{id}  | Replaces entire issue by id and returns status of ACCEPTED | Authenticated User and issue object |
+| DELETE | /issues/issue/{id}  |        Deletes issue by id and returns status of OK        |         Authenticated User          |
 
 ## COMMENT
 
@@ -153,16 +160,14 @@ the corresponding user to the issue id provided in the endpoint.
 ]
 ```
 
-|  Type  |          Endpoint           |                            What it does                            |           required           |
-| :----: | :-------------------------: | :----------------------------------------------------------------: | :--------------------------: |
-|  GET   |     /comments/comments      |                   Returns full list of comments                    | Token and Authenticated User |
-|  GET   |   /comments/comment/{id}    |                  Returns specific comments by id                   | Token and Authenticated User |
-|  GET   | /issues/issue/{id}/comments |      Returns full list of comments in a specific issue by id       | Token and Authenticated User |
-|  POST  |      /comments/comment      |     Adds new comment to database and returns status of CREATED     |    Token and issue object    |
-|  POST  |      /comments/comment      |     Adds new comment to database and returns status of CREATED     |    Token and issue object    |
-|  POST  | /issues/issue/{id}/comments | Adds new comment to a specific issue and returns status of CREATED |    Token and issue object    |
-|  PUT   |   /comments/comment/{id}    |    Replaces entire comment by id and returns status of ACCEPTED    |    Token and issue object    |
-| DELETE |   /comments/comment/{id}    |           Deletes comment by id and returns status of OK           |            Token             |
+|  Type  |          Endpoint           |                            What it does                            |               required                |
+| :----: | :-------------------------: | :----------------------------------------------------------------: | :-----------------------------------: |
+|  GET   |     /comments/comments      |                   Returns full list of comments                    |          Authenticated User           |
+|  GET   |   /comments/comment/{id}    |                  Returns specific comments by id                   |          Authenticated User           |
+|  GET   | /issues/issue/{id}/comments |      Returns full list of comments in a specific issue by id       |          Authenticated User           |
+|  POST  | /issues/issue/{id}/comments | Adds new comment to a specific issue and returns status of CREATED | Authenticated User and comment object |
+|  PUT   |   /comments/comment/{id}    |    Replaces entire comment by id and returns status of ACCEPTED    | Authenticated User and comment object |
+| DELETE |   /comments/comment/{id}    |           Deletes comment by id and returns status of OK           |          Authenticated User           |
 
 ## ROLE
 
