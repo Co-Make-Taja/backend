@@ -127,6 +127,25 @@ public class IssueController {
                 HttpStatus.CREATED);
     }
 
+    //issues/issue/:id/comment/:id
+    @PutMapping(value = "/issue/{issueid}/comment/{commentid}", consumes = {"application/json"})
+    public ResponseEntity<?> updateComment(@Valid @RequestBody Comment updateComment, @PathVariable long issueid, @PathVariable long commentid) throws URISyntaxException
+    {
+        Issue thisIssue = issueService.findIssueById(issueid);
+        updateComment.setUser(helperFunctions.getCurrentUser());
+
+        updateComment.setCommentid(commentid);
+        updateComment.setIssue(thisIssue);
+        updateComment.setComment(updateComment.getComment());
+
+        updateComment = commentService.save(updateComment);
+
+        thisIssue.getComments().add(updateComment);
+
+
+        return new ResponseEntity<>("Comment Updated!",
+                HttpStatus.ACCEPTED);
+    }
 
     // using fullupdate since FE will setup forms with auto populate
     //issues/issue/:id

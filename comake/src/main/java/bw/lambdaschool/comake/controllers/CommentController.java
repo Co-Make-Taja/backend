@@ -40,17 +40,6 @@ public class CommentController
 
 
     // comments/comment/:id
-    @PutMapping(value = "/comment/{id}", consumes = {"application/json"})
-    public ResponseEntity<?> updateComment(@Valid @RequestBody Comment updatedComment, @PathVariable long id)
-    {
-        updatedComment.setCommentid(id);
-        commentService.save(updatedComment);
-
-        return new ResponseEntity<>("Successfully Updated", HttpStatus.ACCEPTED);
-    }
-
-
-    // comments/comment/:id
     @DeleteMapping(value = "/comment/{id}")
     public ResponseEntity<?> deleteCommentById(@PathVariable long id)
     {
