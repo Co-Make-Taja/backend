@@ -1,5 +1,6 @@
 package bw.lambdaschool.comake.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Comment extends Auditable
     @ManyToOne
     @JoinColumn(name = "issueid", nullable = false)
     @JsonIgnoreProperties(value = "comments", allowSetters = true)
+    @JsonIgnore
     private Issue issue;
 
     @ManyToOne

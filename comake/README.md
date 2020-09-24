@@ -21,7 +21,8 @@
 [Important Endpoints](#important-endpoints)
 [Register and Login](#register-and-login)  
 [User](#user)  
-[Issue](#issue)  
+[Issue](#issue)
+[Comment](#comment)  
 [Role](#role)
 
 ## IMPORTANT ENDPOINTS
@@ -95,13 +96,13 @@ the corresponding user to the id provided in the endpoint.
 
 |  Type  |     Endpoint     |                                      What it does                                      |              required              |
 | :----: | :--------------: | :------------------------------------------------------------------------------------: | :--------------------------------: |
-|  GET   |   /users/users   |                               Returns full list of users                               |        Token and Admin role        |
-|  GET   | /users/user/{id} |                              Returns specific user by id                               |        Token and Admin role        |
-|  GET   |  /users/myinfo   |                             Returns current user's object                              |               Token                |
-|  POST  |  /createnewuser  | Creates new user to database with 'USER' as default role and returns status of CREATED |        Token and Admin role        |
+|  GET   |   /users/users   |                               Returns full list of users                               |    Token and Authenticated User    |
+|  GET   | /users/user/{id} |                              Returns specific user by id                               |    Token and Authenticated User    |
+|  GET   |  /users/myinfo   |                             Returns current user's object                              |    Token and Authenticated User    |
+|  POST  |  /createnewuser  | Creates new user to database with 'USER' as default role and returns status of CREATED |                None                |
 |  POST  |   /users/user    |  Adds new user to database given a complete User Object and returns status of CREATED  |        Token and Admin role        |
 |  PUT   | /users/user/{id} |               Replaces entire user by id and returns status of ACCEPTED                | Token, Admin role, and User object |
-| DELETE | /users/user/{id} |                      Deletes user by id and returns status of OK                       |               Token                |
+| DELETE | /users/user/{id} |                      Deletes user by id and returns status of OK                       |    Token and Authenticated User    |
 
 ## ISSUE
 
@@ -122,13 +123,46 @@ the corresponding user to the issue id provided in the endpoint.
 }
 ```
 
-|  Type  |      Endpoint       |                        What it does                        |        required        |
-| :----: | :-----------------: | :--------------------------------------------------------: | :--------------------: |
-|  GET   |   /issues/issues    |                Returns full list of issues                 |  Token and Admin role  |
-|  GET   | /issues/issues/{id} |                Returns specific issue by id                |  Token and Admin role  |
-|  POST  |    /issues/issue    |  Adds new issue to database and returns status of CREATED  | Token and issue object |
-|  PUT   | /issues/issue/{id}  | Replaces entire plant by id and returns status of ACCEPTED | Token and issue object |
-| DELETE | /issues/issue/{id}  |        Deletes plant by id and returns status of OK        |         Token          |
+|  Type  |      Endpoint       |                        What it does                        |           required           |
+| :----: | :-----------------: | :--------------------------------------------------------: | :--------------------------: |
+|  GET   |   /issues/issues    |                Returns full list of issues                 | Token and Authenticated User |
+|  GET   | /issues/issues/{id} |                Returns specific issue by id                | Token and Authenticated User |
+|  POST  |    /issues/issue    |  Adds new issue to database and returns status of CREATED  |    Token and issue object    |
+|  PUT   | /issues/issue/{id}  | Replaces entire issue by id and returns status of ACCEPTED |    Token and issue object    |
+| DELETE | /issues/issue/{id}  |        Deletes issue by id and returns status of OK        |            Token             |
+
+## COMMENT
+
+In order to change any issue information the request must come from an admin or  
+the corresponding user to the issue id provided in the endpoint.
+
+#### The comment object is of a structure
+
+```
+[
+    {
+        "commentid": 27,
+        "comment": "This is a sample comment.",
+        "user": {
+            "userid": 23,
+            "username": "taja",
+            "phone": "(123)456-7777",
+            "primaryemail": "taja@lambda.com"
+        }
+    }
+]
+```
+
+|  Type  |          Endpoint           |                            What it does                            |           required           |
+| :----: | :-------------------------: | :----------------------------------------------------------------: | :--------------------------: |
+|  GET   |     /comments/comments      |                   Returns full list of comments                    | Token and Authenticated User |
+|  GET   |   /comments/comment/{id}    |                  Returns specific comments by id                   | Token and Authenticated User |
+|  GET   | /issues/issue/{id}/comments |      Returns full list of comments in a specific issue by id       | Token and Authenticated User |
+|  POST  |      /comments/comment      |     Adds new comment to database and returns status of CREATED     |    Token and issue object    |
+|  POST  |      /comments/comment      |     Adds new comment to database and returns status of CREATED     |    Token and issue object    |
+|  POST  | /issues/issue/{id}/comments | Adds new comment to a specific issue and returns status of CREATED |    Token and issue object    |
+|  PUT   |   /comments/comment/{id}    |    Replaces entire comment by id and returns status of ACCEPTED    |    Token and issue object    |
+| DELETE |   /comments/comment/{id}    |           Deletes comment by id and returns status of OK           |            Token             |
 
 ## ROLE
 
@@ -142,10 +176,10 @@ the corresponding user to the issue id provided in the endpoint.
 }
 ```
 
-|  Type  |     Endpoint     |                       What it does                       |       required        |
-| :----: | :--------------: | :------------------------------------------------------: | :-------------------: |
-|  GET   |   /roles/roles   |                Returns full list of roles                | Token and Admin role  |
-|  GET   | /roles/role/{id} |               Returns specific role by id                | Token and Admin role  |
-|  POST  |   /roles/role    | Adds new role to database and returns status of CREATED  | Token and role object |
-| PATCH  | /roles/role/{id} | Replaces entire role by id and returns status of CREATED | Token and role object |
-| DELETE | /roles/role/{id} |       Deletes role by id and returns status of OK        |         Token         |
+|  Type  |     Endpoint     |                       What it does                        |       required        |
+| :----: | :--------------: | :-------------------------------------------------------: | :-------------------: |
+|  GET   |   /roles/roles   |                Returns full list of roles                 | Token and Admin role  |
+|  GET   | /roles/role/{id} |                Returns specific role by id                | Token and Admin role  |
+|  POST  |   /roles/role    |  Adds new role to database and returns status of CREATED  | Token and role object |
+|  PUT   | /roles/role/{id} | Replaces entire role by id and returns status of ACCEPTED | Token and role object |
+| DELETE | /roles/role/{id} |        Deletes role by id and returns status of OK        |         Token         |

@@ -1,5 +1,6 @@
 package bw.lambdaschool.comake.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -47,6 +48,7 @@ public class Issue extends Auditable
     @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JsonIgnoreProperties(value = "issue", allowSetters = true)
+    @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
 
     /**
@@ -75,63 +77,51 @@ public class Issue extends Auditable
         this.user = user;
     }
 
-    public long getIssueid()
-    {
+    public long getIssueid() {
         return issueid;
     }
 
-    public void setIssueid(long issueid)
-    {
+    public void setIssueid(long issueid) {
         this.issueid = issueid;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getImage()
-    {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(String image)
-    {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public Category getCategory()
-    {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category)
-    {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
