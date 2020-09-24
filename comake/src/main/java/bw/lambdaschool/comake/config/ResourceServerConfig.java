@@ -51,24 +51,24 @@ public class ResourceServerConfig
                         "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**",
-                        "/createnewuser")
-                .permitAll()
-                .antMatchers(HttpMethod.POST,
-                        "/users/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE,
-                        "/users/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT,
-                        "/users/**")
-                .hasAnyRole("ADMIN")
+                        "/createnewuser").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/**").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/**").hasAnyRole("ADMIN")
                 .antMatchers("/users/**",
                         "/useremails/**",
                         "/oauth/revoke-token",
-                        "/logout")
-                .authenticated()
-                .antMatchers("/roles/**")
-                .hasAnyRole("ADMIN")
+                        "/logout").authenticated()
+                .antMatchers("/roles/**").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/issues/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/issues/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/issues/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/categories/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/categories/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/categories/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/comments/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/comments/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/comments/**").authenticated()
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());

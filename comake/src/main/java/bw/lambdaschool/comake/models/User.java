@@ -68,14 +68,17 @@ public class User extends Auditable
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
+    @JsonIgnore
     private Set<UserRoles> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
+    @JsonIgnore
     private Set<Issue> issues = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
+    @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
 
     /**
