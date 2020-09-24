@@ -1,19 +1,15 @@
 package bw.lambdaschool.comake.controllers;
 
 import bw.lambdaschool.comake.models.Comment;
-import bw.lambdaschool.comake.models.Issue;
 import bw.lambdaschool.comake.services.CommentService;
+import bw.lambdaschool.comake.services.HelperFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -22,6 +18,9 @@ public class CommentController
 {
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    HelperFunctions helperFunctions;
 
     // comments/comments
     @GetMapping(value = "/comments", produces = {"application/json"})
@@ -41,7 +40,7 @@ public class CommentController
 
 
     // comments/comment/:id
-    @PutMapping(value = "/comment/{id}", consumes = {"application/json"}, produces = {"application/json"})
+    @PutMapping(value = "/comment/{id}", consumes = {"application/json"})
     public ResponseEntity<?> updateComment(@Valid @RequestBody Comment updatedComment, @PathVariable long id)
     {
         updatedComment.setCommentid(id);

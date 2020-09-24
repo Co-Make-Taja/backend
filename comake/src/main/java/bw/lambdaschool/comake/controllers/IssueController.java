@@ -47,29 +47,45 @@ public class IssueController {
 
     //issues/issue/:id/comments
     @GetMapping(value = "/issue/{issueid}/comments")
-    public ResponseEntity<?> getCommentsIssueById(HttpServletRequest request, @PathVariable Long issueid) {
+    public ResponseEntity<?> getCommentsIssueById(@PathVariable Long issueid)
+    {
         Issue thisIssue = issueService.findIssueById(issueid);
         Set<Comment> commentList = thisIssue.getComments();
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
-    //issues/issue/:id/comments/:id
-    @GetMapping(value = "/issue/{issueid}/comment/{commentid}")
-    public ResponseEntity<?> getIssueCommentById(HttpServletRequest request, @PathVariable Long issueid, @PathVariable Long commentid) {
+
+    //issues/issue/:id/upvote
+    @GetMapping(value = "/issue/{issueid}/upvote")
+    public ResponseEntity<?> getUpvoteForIssue(@PathVariable Long issueid)
+    {
         Issue thisIssue = issueService.findIssueById(issueid);
-        Set<Comment> thisList = thisIssue.getComments();
-        Comment thisComment = commentService.findCommentById(commentid);
-        return new ResponseEntity<>(thisComment, HttpStatus.OK);
+        int count = thisIssue.getUpvote();
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
+
+    //issues/issue:id/upvote
+    @PatchMapping(value = "/issue/{issueid}/upvote", consumes = {"application/json"})
+    public ResponseEntity<?> incrementUpvote(@RequestBody Issue updateIssue, @PathVariable long issueid)
+    {
+        issueService.update(updateIssue, issueid);
+        return new ResponseEntity<>("Upvoted!", HttpStatus.OK);
+    }
+
 
     //issues/issue
     @PostMapping(value = "/issue", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewIssue(@Valid @RequestBody Issue newIssue) throws URISyntaxException
     {
 
-
         newIssue.setUser(helperFunctions.getCurrentUser());
         newIssue.setIssueid(0);
+        newIssue.setCategory(newIssue.getCategory());
+        newIssue.setTitle(newIssue.getTitle());
+        newIssue.setImage(newIssue.getImage());
+        newIssue.setDescription(newIssue.getDescription());
+
+
         newIssue = issueService.save(newIssue);
 
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -109,11 +125,12 @@ public class IssueController {
         return new ResponseEntity<>("Comment Posted!",
                 responseHeaders,
                 HttpStatus.CREATED);
-
     }
+
+
     // using fullupdate since FE will setup forms with auto populate
     //issues/issue/:id
-    @PutMapping(value = "/issue/{issueid}", consumes = {"application/json"}, produces = {"application/json"})
+    @PutMapping(value = "/issue/{issueid}", consumes = {"application/json"})
     public ResponseEntity<?> fullUpdateIssue(@Valid @RequestBody Issue updateIssue, @PathVariable long issueid)
     {
         updateIssue.setUser(helperFunctions.getCurrentUser()); // set user to current user

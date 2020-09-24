@@ -32,10 +32,6 @@ public class Comment extends Auditable
     {
     }
 
-//    public Comment(String comment)
-//    {
-//        this.comment = comment;
-//    }
 
     public Comment(String comment, Issue issue, User user)
     {

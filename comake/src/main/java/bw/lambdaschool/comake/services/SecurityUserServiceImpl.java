@@ -1,8 +1,8 @@
 package bw.lambdaschool.comake.services;
 
-import bw.lambdaschool.comake.repository.UserRepository;
 import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
 import bw.lambdaschool.comake.models.User;
+import bw.lambdaschool.comake.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

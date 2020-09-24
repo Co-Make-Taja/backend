@@ -23,6 +23,7 @@
 [User](#user)  
 [Issue](#issue)  
 [Comment](#comment)  
+[Upvote](#upvote)  
 [Role](#role)
 
 ## IMPORTANT ENDPOINTS
@@ -101,15 +102,17 @@ the corresponding user to the id provided in the endpoint.
 }
 ```
 
-|  Type  |     Endpoint     |                                      What it does                                      |              required              |
-| :----: | :--------------: | :------------------------------------------------------------------------------------: | :--------------------------------: |
-|  GET   |   /users/users   |                               Returns full list of users                               |         Authenticated User         |
-|  GET   | /users/user/{id} |                              Returns specific user by id                               |         Authenticated User         |
-|  GET   |  /users/myinfo   |                             Returns current user's object                              |         Authenticated User         |
-|  POST  |  /createnewuser  | Creates new user to database with 'USER' as default role and returns status of CREATED |                None                |
-|  POST  |   /users/user    |  Adds new user to database given a complete User Object and returns status of CREATED  |        Token and Admin role        |
-|  PUT   | /users/user/{id} |               Replaces entire user by id and returns status of ACCEPTED                | Token, Admin role, and User object |
-| DELETE | /users/user/{id} |                      Deletes user by id and returns status of OK                       |         Authenticated User         |
+|  Type  |          Endpoint           |                                      What it does                                      |              required              |
+| :----: | :-------------------------: | :------------------------------------------------------------------------------------: | :--------------------------------: |
+|  GET   |        /users/users         |                               Returns full list of users                               |         Authenticated User         |
+|  GET   |      /users/user/{id}       |                              Returns specific user by id                               |         Authenticated User         |
+|  GET   |        /users/myinfo        |                             Returns current user's object                              |         Authenticated User         |
+|  GET   | /users/user/name/{username} |                           Returns specific user by username                            |         Authenticated User         |
+|  GET   | /user/name/like/{substring} |          Returns a list of users whose username contains the given substring           |         Authenticated User         |
+|  POST  |       /createnewuser        | Creates new user to database with 'USER' as default role and returns status of CREATED |                None                |
+|  POST  |         /users/user         |  Adds new user to database given a complete User Object and returns status of CREATED  |        Token and Admin role        |
+|  PUT   |      /users/user/{id}       |               Replaces entire user by id and returns status of ACCEPTED                | Token, Admin role, and User object |
+| DELETE |      /users/user/{id}       |                      Deletes user by id and returns status of OK                       |         Authenticated User         |
 
 ## ISSUE
 
@@ -140,7 +143,7 @@ the corresponding user to the issue id provided in the endpoint.
 
 ## COMMENT
 
-In order to change any issue information the request must come from an admin or  
+In order to change any comment information the request must come from an admin or  
 the corresponding user to the issue id provided in the endpoint.
 
 #### The comment object is of a structure
@@ -168,6 +171,23 @@ the corresponding user to the issue id provided in the endpoint.
 |  POST  | /issues/issue/{id}/comments | Adds new comment to a specific issue and returns status of CREATED | Authenticated User and comment object |
 |  PUT   |   /comments/comment/{id}    |    Replaces entire comment by id and returns status of ACCEPTED    | Authenticated User and comment object |
 | DELETE |   /comments/comment/{id}    |           Deletes comment by id and returns status of OK           |          Authenticated User           |
+
+## UPVOTE
+
+In order to increment the upvote count information the request must come from an authenticated user
+
+#### The comment object is of a structure
+
+```
+{
+    "upvote": 45
+}
+```
+
+| Type  |         Endpoint          |                   What it does                   |      required      |
+| :---: | :-----------------------: | :----------------------------------------------: | :----------------: |
+|  GET  | /issues/issue/{id}/upvote | Returns the upvote value of specific issue by id | Authenticated User |
+| PATCH | /issues/issue/{id}/upvote | Updates the upvote value of specific issue by id | Authenticated User |
 
 ## ROLE
 

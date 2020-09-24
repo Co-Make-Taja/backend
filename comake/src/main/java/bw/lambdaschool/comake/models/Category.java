@@ -1,5 +1,6 @@
 package bw.lambdaschool.comake.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Category extends Auditable
 
     @OneToMany(mappedBy = "category")
     @JsonIgnoreProperties(value = "category", allowSetters = true)
+    @JsonIgnore
     private Set<Issue> issues = new HashSet<>();
 
     /**

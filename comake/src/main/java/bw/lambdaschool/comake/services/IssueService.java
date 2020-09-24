@@ -15,4 +15,6 @@ public interface IssueService
     void delete(long issueid);
 
     void deleteAll();
+
+    Issue update(Issue issue, long issueid);
 }

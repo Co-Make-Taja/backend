@@ -1,16 +1,12 @@
 package bw.lambdaschool.comake.controllers;
 
-import bw.lambdaschool.comake.services.RoleService;
 import bw.lambdaschool.comake.models.User;
 import bw.lambdaschool.comake.models.UserMinimum;
 import bw.lambdaschool.comake.models.UserRoles;
+import bw.lambdaschool.comake.services.RoleService;
 import bw.lambdaschool.comake.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;

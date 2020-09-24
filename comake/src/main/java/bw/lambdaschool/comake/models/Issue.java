@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -50,6 +47,9 @@ public class Issue extends Auditable
     @JsonIgnoreProperties(value = "issue", allowSetters = true)
     @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
+
+    @Column(nullable = true)
+    private int upvote;
 
     /**
      * The default controller is required by JPA
@@ -131,5 +131,15 @@ public class Issue extends Auditable
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public int getUpvote()
+    {
+        return upvote;
+    }
+
+    public void setUpvote(int upvote)
+    {
+        this.upvote = upvote;
     }
 }

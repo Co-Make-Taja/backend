@@ -1,14 +1,14 @@
 package bw.lambdaschool.comake.services;
 
+import bw.lambdaschool.comake.exceptions.ResourceFoundException;
+import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
+import bw.lambdaschool.comake.models.Role;
 import bw.lambdaschool.comake.repository.RoleRepository;
 import bw.lambdaschool.comake.repository.UserRepository;
-import bw.lambdaschool.comake.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import bw.lambdaschool.comake.exceptions.ResourceFoundException;
-import bw.lambdaschool.comake.exceptions.ResourceNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 

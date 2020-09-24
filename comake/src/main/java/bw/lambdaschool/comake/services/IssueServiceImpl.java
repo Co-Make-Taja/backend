@@ -50,16 +50,13 @@ public class IssueServiceImpl implements IssueService
         {
             issueRepository.findById(issue.getIssueid())
                     .orElseThrow(() -> new ResourceNotFoundException("Issue id " + issue.getIssueid() + " not found!"));
+            newIssue.setIssueid(issue.getIssueid());
         }
 
         newIssue.setTitle(issue.getTitle());
         newIssue.setDescription(issue.getDescription());
         newIssue.setImage(issue.getImage());
-        if (issue.getCategory() != null)
-        {
-            newIssue.setCategory(categoryService.findCategoryById(issue.getCategory()
-                    .getCategoryid()));
-        }
+        newIssue.setCategory(issue.getCategory());
 
         // setting the user to the issue created
         newIssue.setUser(issue.getUser());
@@ -86,6 +83,26 @@ public class IssueServiceImpl implements IssueService
     public void deleteAll()
     {
         issueRepository.deleteAll();
+    }
+
+
+    @Transactional
+    @Override
+    public Issue update(Issue issue, long issueid)
+    {
+        Issue currentIssue = findIssueById(issueid);
+
+        if (issueid != 0)
+        {
+                currentIssue.setUpvote(issue.getUpvote());
+
+            return issueRepository.save(currentIssue);
+        } else
+        {
+            // note we should never get to this line but is needed for the compiler
+            // to recognize that this exception can be thrown
+            throw new ResourceNotFoundException("Issue with id " + issueid + " not found!" );
+        }
     }
 
 

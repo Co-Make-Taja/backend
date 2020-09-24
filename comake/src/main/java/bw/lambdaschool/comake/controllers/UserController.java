@@ -8,15 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -60,15 +52,11 @@ public class UserController
      * @see UserService#findUserById(long) UserService.findUserById(long)
      */
     //users/user/:id
-    @GetMapping(value = "/user/{userId}",
-            produces = "application/json")
-    public ResponseEntity<?> getUserById(
-            @PathVariable
-                    Long userId)
+    @GetMapping(value = "/user/{userId}", produces = "application/json")
+    public ResponseEntity<?> getUserById(@PathVariable Long userId)
     {
         User u = userService.findUserById(userId);
-        return new ResponseEntity<>(u,
-                                    HttpStatus.OK);
+        return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
     /**
@@ -79,15 +67,11 @@ public class UserController
      * @return JSON object of the user you seek
      * @see UserService#findByName(String) UserService.findByName(String)
      */
-    @GetMapping(value = "/user/name/{userName}",
-            produces = "application/json")
-    public ResponseEntity<?> getUserByName(
-            @PathVariable
-                    String userName)
+    @GetMapping(value = "/user/name/{userName}", produces = "application/json")
+    public ResponseEntity<?> getUserByName(@PathVariable String userName)
     {
         User u = userService.findByName(userName);
-        return new ResponseEntity<>(u,
-                                    HttpStatus.OK);
+        return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
     /**
@@ -98,15 +82,11 @@ public class UserController
      * @return A JSON list of users you seek
      * @see UserService#findByNameContaining(String) UserService.findByNameContaining(String)
      */
-    @GetMapping(value = "/user/name/like/{userName}",
-            produces = "application/json")
-    public ResponseEntity<?> getUserLikeName(
-            @PathVariable
-                    String userName)
+    @GetMapping(value = "/user/name/like/{userName}", produces = "application/json")
+    public ResponseEntity<?> getUserLikeName(@PathVariable String userName)
     {
         List<User> u = userService.findByNameContaining(userName);
-        return new ResponseEntity<>(u,
-                                    HttpStatus.OK);
+        return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
     /**
@@ -157,14 +137,8 @@ public class UserController
      * @return status of OK
      * @see UserService#save(User) UserService.save(User)
      */
-    @PutMapping(value = "/user/{userid}",
-            consumes = "application/json")
-    public ResponseEntity<?> updateFullUser(
-            @Valid
-            @RequestBody
-                    User updateUser,
-            @PathVariable
-                    long userid)
+    @PutMapping(value = "/user/{userid}", consumes = "application/json")
+    public ResponseEntity<?> updateFullUser(@Valid @RequestBody User updateUser, @PathVariable long userid)
     {
         updateUser.setUserid(userid);
         userService.save(updateUser);
@@ -175,7 +149,7 @@ public class UserController
     /**
      * Updates the user record associated with the given id with the provided data. Only the provided fields are affected.
      * Roles are handled through different endpoints
-     * If an email list is given, it replaces the original emai list.
+     * If an email list is given, it replaces the original email list.
      * <br> Example: <a href="http://localhost:2019/users/user/7">http://localhost:2019/users/user/7</a>
      *
      * @param updateUser An object containing values for just the fields that are being updated. All other fields are left NULL.
@@ -183,16 +157,10 @@ public class UserController
      * @return A status of OK
      * @see UserService#update(User, long) UserService.update(User, long)
      */
-    @PatchMapping(value = "/user/{id}",
-            consumes = "application/json")
-    public ResponseEntity<?> updateUser(
-            @RequestBody
-                    User updateUser,
-            @PathVariable
-                    long id)
+    @PatchMapping(value = "/user/{id}", consumes = "application/json")
+    public ResponseEntity<?> updateUser(@RequestBody User updateUser, @PathVariable long id)
     {
-        userService.update(updateUser,
-                           id);
+        userService.update(updateUser, id);
         return new ResponseEntity<>("User Updated!", HttpStatus.ACCEPTED);
     }
 
@@ -204,9 +172,7 @@ public class UserController
      * @return Status of OK
      */
     @DeleteMapping(value = "/user/{id}")
-    public ResponseEntity<?> deleteUserById(
-            @PathVariable
-                    long id)
+    public ResponseEntity<?> deleteUserById(@PathVariable long id)
     {
         userService.delete(id);
         return new ResponseEntity<>("Successfully Deleted!", HttpStatus.OK);

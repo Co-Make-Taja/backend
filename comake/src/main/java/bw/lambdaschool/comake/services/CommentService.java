@@ -13,4 +13,6 @@ public interface CommentService
     void delete(long id);
 
     Comment findCommentById(Long id);
+
+    void deleteAll();
 }

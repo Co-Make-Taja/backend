@@ -47,6 +47,9 @@ public class SeedData implements CommandLineRunner
     IssueService issueService;
 
     @Autowired
+    CommentService commentService;
+
+    @Autowired
     HelperFunctions helperFunctions;
 
     /**
@@ -66,6 +69,8 @@ public class SeedData implements CommandLineRunner
         roleService.deleteAll();
         categoryService.deleteAll();
         issueService.deleteAll();
+        commentService.deleteAll();
+
 
 
         // roles
