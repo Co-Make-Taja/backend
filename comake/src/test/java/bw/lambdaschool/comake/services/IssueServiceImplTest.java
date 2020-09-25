@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Set;
 
 import static junit.framework.TestCase.assertEquals;
@@ -43,16 +44,56 @@ public class IssueServiceImplTest
         MockitoAnnotations.initMocks(this);
 
 
-//        Set<Issue> myList = issueService.findAll();
-//        for (Issue b : myList)
-//        {
-//            System.out.println(b.getIssueid() + " " + b.getTitle());
-//        }
+        Set<Issue> myList = issueService.findAll();
+        for (Issue b : myList)
+        {
+            System.out.println(b.getIssueid() + " " + b.getTitle());
+        }
 
         //  Issue List
         //        24 Caught in the Act!!!
         //        25 Looking for doll specialist
         //        26 Newborn care specialist
+
+
+        List<User> userList = userService.findAll();
+        for (User u : userList)
+        {
+            System.out.println(u.getUserid() + " " + u.getUsername());
+        }
+
+        //User List
+        //        17 christian
+        //        18 nelson
+        //        19 rhea
+        //        20 matty
+        //        21 max
+        //        22 sam
+        //        23 taja
+        //        27 aaron
+
+
+        Set<Category> categoriesList = categoryService.findAll();
+        for (Category c : categoriesList)
+        {
+            System.out.println(c.getCategoryid() + " " + c.getCategoryname());
+        }
+
+        // Category List
+        //        8 General
+        //        9 Holiday
+        //        6 Crime & Safety
+        //        16 Yard and Lawn
+        //        5 Community Activities
+        //        7 Flooding
+        //        14 School & Education
+        //        12 Recommendation
+        //        28 General
+        //        11 Pets
+        //        10 Lost & Found
+        //        4 Announcement
+        //        13 Road Closure & Transportation
+        //        15 Utilities
     }
 
     @After
@@ -95,16 +136,43 @@ public class IssueServiceImplTest
     }
 
     @Test
-    public void delete()
+    public void y_delete()
     {
-        
+        issueService.delete(26);
+        assertEquals(3, issueService.findAll().size());
     }
 
     @Test
-    public void deleteAll() {
+    public void z_deleteAll()
+    {
+        issueService.deleteAll();
+        assertEquals(0, issueService.findAll().size());
     }
 
     @Test
-    public void update() {
+    public void update()
+    {
+        //user
+        User updateUser = userService.findUserById(27);
+
+
+        //category
+        Category updateCategory = categoryService.findCategoryById(4);
+
+
+        //new issue
+        Issue updateIssue = issueService.findIssueById((long)29);
+
+        updateIssue.setTitle("Edited Test Issue");
+        updateIssue.setDescription("This is Edited test issue for testing test.");
+        updateIssue.setImage(null);
+        updateIssue.setCategory(updateCategory);
+        updateIssue.setUser(updateUser);
+
+        Issue updatedIssue = issueService.save(updateIssue);
+
+        assertNotNull(updatedIssue);
+        assertEquals("Edited Test Issue", updatedIssue.getTitle());
+        assertEquals("Announcement", updatedIssue.getCategory().getCategoryname());
     }
 }
