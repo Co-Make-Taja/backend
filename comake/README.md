@@ -18,7 +18,7 @@
 
 ### Table of Contents
 
-[Important Endpoints](#important-endpoints)
+[Important Endpoints](#important-endpoints)  
 [Register and Login](#register-and-login)  
 [User](#user)  
 [Issue](#issue)  
@@ -212,3 +212,4 @@ In order to increment the upvote count information the request must come from an
 |  POST  |   /roles/role    |  Adds new role to database and returns status of CREATED  | Token and role object |
 |  PUT   | /roles/role/{id} | Replaces entire role by id and returns status of ACCEPTED | Token and role object |
 | DELETE | /roles/role/{id} |        Deletes role by id and returns status of OK        |         Token         |
+

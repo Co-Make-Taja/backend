@@ -18,7 +18,8 @@
 
 ### Table of Contents
 
-[Important Endpoints](#important-endpoints)
+
+[Important Endpoints](#important-endpoints)  
 [Register and Login](#register-and-login)  
 [User](#user)  
 [Issue](#issue)  
@@ -27,6 +28,7 @@
 [Role](#role)
 
 ## IMPORTANT ENDPOINTS
+
 
 |  Type  |           Endpoint            |                   requires                   |            returns            |
 | :----: | :---------------------------: | :------------------------------------------: | :---------------------------: |
@@ -53,6 +55,7 @@
 | DELETE |     /comments/comment/:id     |                    token                     |           OK status           |
 | PATCH  |   /issues/issue/:id/upvote    |                update object                 |           OK status           |
 | PATCH  |        /users/user/:id        |          partial user object, token          |        ACCEPTED status        |
+
 
 ## REGISTER AND LOGIN
 
@@ -166,6 +169,7 @@ the corresponding user to the issue id provided in the endpoint.
     }
 ]
 ```
+
 
 |  Type  |            Endpoint             |                                   What it does                                   |               required                |
 | :----: | :-----------------------------: | :------------------------------------------------------------------------------: | :-----------------------------------: |
