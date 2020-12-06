@@ -51,6 +51,8 @@
 | DELETE |       /issues/issue/:id       |                    token                     |           OK status           |
 | DELETE |        /users/user/:id        |                    token                     |           OK status           |
 | DELETE |     /comments/comment/:id     |                    token                     |           OK status           |
+| PATCH  |   /issues/issue/:id/upvote    |                update object                 |           OK status           |
+| PATCH  |        /users/user/:id        |          partial user object, token          |        ACCEPTED status        |
 
 ## REGISTER AND LOGIN
 
@@ -97,6 +99,7 @@ the corresponding user to the id provided in the endpoint.
     "phone": "(317)867-5309",
     "password": "somepassword",
     "primaryemail": "admin@email.local",
+    "avatarimage": null,
     "roles": [],
     "issues": []
 }
@@ -157,7 +160,8 @@ the corresponding user to the issue id provided in the endpoint.
             "userid": 23,
             "username": "taja",
             "phone": "(123)456-7777",
-            "primaryemail": "taja@lambda.com"
+            "primaryemail": "taja@lambda.com",
+            "avatarimage": null
         }
     }
 ]

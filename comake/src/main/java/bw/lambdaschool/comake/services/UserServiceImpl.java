@@ -140,6 +140,11 @@ public class UserServiceImpl
                     .toLowerCase());
             }
 
+            if (user.getAvatarimage() != null)
+            {
+                currentUser.setAvatarimage(user.getAvatarimage());
+            }
+
             if (user.getRoles()
                 .size() > 0)
             {

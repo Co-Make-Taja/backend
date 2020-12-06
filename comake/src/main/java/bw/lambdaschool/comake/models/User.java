@@ -56,6 +56,12 @@ public class User extends Auditable
     private String primaryemail;
 
     /**
+     * Avatar image of user. Can be null and not unique.
+     */
+    @Column(nullable = true, unique = false)
+    private String avatarimage;
+
+    /**
      * Part of the join relationship between user and role
      * connects users to the user role combination
      */
@@ -182,6 +188,24 @@ public class User extends Auditable
     public void setPrimaryemail(String primaryemail)
     {
         this.primaryemail = primaryemail.toLowerCase();
+    }
+
+    /**
+     * getter for avatar image
+     *
+     * @return the avatar iamge (String) for the user
+     */
+    public String getAvatarimage() {
+        return avatarimage;
+    }
+
+    /**
+     * setter for primary email
+     *
+     * @param avatarimage the new avatar image (String) for the user
+     */
+    public void setAvatarimage(String avatarimage) {
+        this.avatarimage = avatarimage;
     }
 
     /**
